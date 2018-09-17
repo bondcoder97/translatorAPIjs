@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <link href="jquery-ui.min.css" rel="stylesheet" >
+    <style>
+        :root{
+            --mainColor : rgb(0,200,50);
+        }
+        
+        
+        
+        #translateFrom{
+            
+            
+        }
+        
+        #fieldOfProgram{
+            position:relative;
+            margin-left: 20%;
+            
+            
+            
+            
+        }
+        
+        .textField{
+            margin-bottom:0.5%;
+            height:20px;
+            width:200px;
+        }
+        
+        #listOfLang{
+            margin-bottom:5px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"> </script>
+    <script src="jquery-ui.min.js"></script>
+    <script>
+    
+    $(document).ready(function(){
+        
+    var url="https://translate.yandex.net/api/v1.5/tr.json/translate?key=yourCode&text=";
+        var changedUrl = "";
+        $('#translate').click(function(evt){
+            evt.preventDefault();
+            changedUrl=url;
+            var word = $('#translateFrom').val();
+            changedUrl+=encodeURI(word);
+            
+            if($('#listOfLang').val() == "Русский - Английский")
+            changedUrl+="&lang=en";
+            else if ($('#listOfLang').val = "Английский - Русский")
+            changedUrl+="&lang=ru";
+            
+            $.getJSON(changedUrl,function(data){
+                
+                $('#translateTo').val(data.text);
+                
+            });
+            
+            changedUrl=url;
+        });//конец запроса
+        
+        
+        $('#translate').button();
+       
+    
+    
+    });//конец ready
+    
+    </script>
+    
+    
+</head>
+<body>
+    
+    <div id="fieldOfProgram">
+    <form id="container">
+        
+        <select id="listOfLang">
+            <option>Английский - Русский</option>
+            <option>Русский - Английский</option> 
+            
+            <select>
+            </select><br/>
+             
+            <input id="translateFrom" class="textField" type="text" placeholder="Введите слово для перевода"><br/>
+        <input id="translateTo" class="textField" type="text" placeholder="Переведенное слово"><br/>
+        <button id="translate"> Перевести </button>
+    </form>
+    </div>
+</body>
+
+</html>
